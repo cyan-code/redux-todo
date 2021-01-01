@@ -8,6 +8,10 @@ class List extends Component {
       <>
         <ul>
           {
+            // 判断todos是否为空，如果为空显示span当中的提示
+            this.props.todos.length === 0 ?
+            <li>待办事项为空</li>
+            :
             this.props.todos.map((todo, i) => {
               return <li key={ todo.id }><Item { ...todo }/></li>
             })
