@@ -1,4 +1,5 @@
 import _ from 'lodash' // 深克隆用的插件
+import { ADD, BIND_INPUT, COMPLETE, DEL, DEL_INPUT } from '../actions/action-type'
 
 // 初始化state
 const initState = {todos: Array(6).fill(null).map((v, i) => {
@@ -15,20 +16,19 @@ const reducer = (state = initState, { type, payload }) => {
   switch (type) {
     
     // 向todos增加一项的操作
-    case 'ADD':
+    case ADD:
       state.todos.unshift(payload)
       return state
     
     // 删除一项item
-    case 'DEL':
+    case DEL:
       const newInputValue = state.inputValue
       const newTodos = state.todos.filter(item => item.id !== payload)
       const newState = {todos: newTodos, inputValue: newInputValue}
-      console.log(newState);
       return newState
     
     // toggle completed
-    case "COMPLETE":
+    case COMPLETE:
       const newInputValue2 = state.inputValue
       const newTodos2 = state.todos.map(item => {
         if (item.id === payload) {
@@ -40,13 +40,13 @@ const reducer = (state = initState, { type, payload }) => {
       return newState2
 
     // 绑定input框当中的输入
-    case 'BIND_INPUT':
+    case BIND_INPUT:
       let stateCopy = _.cloneDeep(state)
       stateCopy.inputValue = payload
       return stateCopy
 
     // 当点击提交之后删除input内容
-    case 'DEL_INPUT':
+    case DEL_INPUT:
       let stateCopy3 = _.cloneDeep(state)
       stateCopy3.inputValue = ''
       return stateCopy3

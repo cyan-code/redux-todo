@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { sendAddAction, sendBindAction, sendDelInputAction } from '../actions/todo-action'
 class Input extends Component {
   inputHandler = (e) => {
     this.props.sendBindAction(e.target.value)
@@ -22,32 +23,16 @@ class Input extends Component {
     )
   }
 }
-const mapStateToProps = state => {
-  return state
-}
-const mapDispatchToProps = (dispatch) => {
-  return {
-    sendBindAction: (value) => {
-      dispatch({
-        type: 'BIND_INPUT',
-        payload: value
-      })
-    },
-    sendAddAction: (title) => {
-      dispatch({
-        type: 'ADD',
-        payload: {
-          id: Math.random(),
-          title,
-          completed: false
-        }
-      })
-    },
-    sendDelInputAction: () => {
-      dispatch({
-        type: 'DEL_INPUT',
-      })
-    }
-  }
-}
+// const mapStateToProps = state => {
+//   return state
+// }
+const mapStateToProps = state => ({
+  todos: state.todos
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  sendBindAction: (value) => { dispatch(sendBindAction(value)) },
+  sendAddAction: (title) => { dispatch(sendAddAction(title)) },
+  sendDelInputAction: () => { dispatch(sendDelInputAction()) }
+})
 export default connect(mapStateToProps, mapDispatchToProps)(Input)

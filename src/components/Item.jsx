@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { sendDelAction, sendSwitchAction } from '../actions/todo-action'
 
 class Item extends Component {
   clickHandler = () => {
@@ -20,20 +21,9 @@ class Item extends Component {
     )
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    sendDelAction: (value) => {
-      dispatch({
-        type: 'DEL',
-        payload: value
-      })
-    },
-    sendSwitchAction: (value) => {
-      dispatch({
-        type: 'COMPLETE',
-        payload: value
-      })
-    }
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  sendDelAction: (id) => { dispatch(sendDelAction(id) )
+  },
+  sendSwitchAction: (id) => { dispatch(sendSwitchAction(id)) }
+})
 export default connect(null, mapDispatchToProps)(Item)
